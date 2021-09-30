@@ -13,6 +13,8 @@ using Discord.WebSocket;
 using DSharpPlus.Net;
 using DSharpPlus.Lavalink;
 using System.Linq;
+using System.Text;
+using Newtonsoft.Json;
 
 namespace DiscordBot
 {
@@ -100,12 +102,19 @@ namespace DiscordBot
             int i = 0;
             int x = 0;
 
-          
-            discord = new DiscordClient(new DiscordConfiguration()
-            {
-                Token = "ODg2MTYzNzAyNDc3Mzg5OTA1.YTxmQg.Yrbc9vLsesG2qeQ3RQErpuEWNGA",
-                TokenType = TokenType.Bot
-            });
+            var json = string.Empty;
+
+            using (var fs = File.OpenRead("config.json"))
+            using (var sr = new StreamReader(fs, new UTF8Encoding(false)))
+                json = await sr.ReadToEndAsync().ConfigureAwait(false);
+
+            var configJson = JsonConvert.DeserializeObject<ConfigJson>(json);
+
+                discord = new DiscordClient(new DiscordConfiguration()
+                {
+                    Token = configJson.Token,
+                    TokenType = TokenType.Bot
+                });
 
             DiscordSocketClient client = new DiscordSocketClient();
             
