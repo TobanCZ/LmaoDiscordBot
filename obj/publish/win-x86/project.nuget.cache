@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ULVJCOIqB5oZxD4YHrgzrSok+zTjPymHxi9RLiP2pKj2xrg1rbPsPW0KGPezFd1pRQltF52epM+CjQ2WV7IX/Q==",
+  "dgSpecHash": "rVzFtqFwtARIYodSK3LkorBuEXTVe5379+2cgmW1vq4GOfBglelJj3v5AgsSgfAuoIWvHCi+2PO851SJdMBoag==",
   "success": true,
-  "projectFilePath": "C:\\Visual studio projects\\DiscordBot\\DiscordBot.csproj",
+  "projectFilePath": "C:\\Visual studio projects\\LmaoDiscordBot\\DiscordBot.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\tobia\\.nuget\\packages\\commonservicelocator\\2.0.5\\commonservicelocator.2.0.5.nupkg.sha512",
     "C:\\Users\\tobia\\.nuget\\packages\\concurrenthashset\\1.1.0\\concurrenthashset.1.1.0.nupkg.sha512",

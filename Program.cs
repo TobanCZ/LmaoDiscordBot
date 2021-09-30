@@ -30,6 +30,8 @@ namespace DiscordBot
         static DiscordClient mainds = null;
 
         static List<string> commands;
+        static List<string> lmaocommands;
+        static List<string> managercommands;
 
         static int WideChlebaDevided = 20;
 
@@ -58,25 +60,33 @@ namespace DiscordBot
             act = new DiscordActivity("Minecraft", ActivityType.Playing);
 
             commands = new List<string> {"help",
-                "ping (string) (x)",
                 "chleba",
                 "chleba (name)", 
-                "Delay (x)",
-                "Delay settings",
+                "wide chleba",
+                "wide chleba (number)",
+                "",
+                "Music:",
+                "join",
+                "leave",
+                "play",
+                "pause",
+                "resume",
+                "skip",
+                "clear"};
+
+            lmaocommands = new List<string> {"help lmao",
+                "ping (string) (x)",
+                "delete (number)"
+            };
+
+            managercommands = new List<string> {"help manager",
                 "addrole (name) (role)",
                 "removerole (role)",
                 "removerole (name) (role)",
                 "createrole (name)" ,
-                "delete (number)",
-                "wide chleba",
-                "wide chleba (number)",
-                "join",
-                "leave",
-                "play",
-                "stop",
-                "resume",
-                "skip",
-                "clear"};
+                "Delay (x)",
+                "Delay settings"
+            };
 
             MainAsync().GetAwaiter().GetResult();
         }
@@ -156,6 +166,7 @@ namespace DiscordBot
                             ev = e;
                             x = 0;
                             row = false;
+                            rowtimer.Start();
                         }
                     }
                 }
@@ -223,7 +234,19 @@ namespace DiscordBot
 
                 if (e.Message.Content.ToLower() == "delay settings")
                 {
-                    s.SendMessageAsync(e.Channel, "Delay je nastaven na: " + delay.ToString());
+                    var id = e.Message.Author.Id;
+                    var member = e.Guild.GetMemberAsync(id);
+                    var roles = member.Result.Roles;
+
+
+
+                    foreach (var r in roles)
+                    {
+                        if (r.Name == "Manager")
+                        {
+                            s.SendMessageAsync(e.Channel, "Delay je nastaven na: " + delay.ToString());
+                        }
+                    }
                 }
 
                 if (e.Message.Content.ToLower().StartsWith("delay") && row)
@@ -236,7 +259,7 @@ namespace DiscordBot
 
                     foreach (var r in roles)
                     {
-                        if (r.Name == "Lmao")
+                        if (r.Name == "Manager")
                         {
                             string[] message = e.Message.Content.Split();
                             delay = Convert.ToInt32(message[1]);
@@ -245,17 +268,56 @@ namespace DiscordBot
                     }
                 }
 
-                if (e.Message.Content.ToLower() == ("help") && row)
+                if (e.Message.Content.ToLower().StartsWith("help"))
                 {
-                    rowtimer.Start();
-                    row = false;
+                    string[] allmessage = e.Message.Content.Split();
 
-                    string message = null;
-                    foreach (var c in commands)
+                    var id = e.Message.Author.Id;
+                    var member = e.Guild.GetMemberAsync(id);
+                    var roles = member.Result.Roles;
+
+                    foreach (var r in roles)
                     {
-                        message = message + c + "\n";
+                        if(e.Message.Content.ToLower() == "help")
+                        {
+                            string message = null;
+                            foreach (var c in commands)
+                            {
+                                message = message + c + "\n";
+                            }
+                            s.SendMessageAsync(e.Channel, "`" + message + "`");
+                            break;
+                        }
+                        else
+                        if (allmessage[1] == "lmao") 
+                        {
+                            if (r.Name == "Lmao")
+                            {
+                                string message = null;
+                                foreach (var c in lmaocommands)
+                                {
+                                    message = message + c + "\n";
+                                }
+                                s.SendMessageAsync(e.Channel, "`" + message + "`");
+                                break;
+                            }
+                            
+                        }
+                        else
+                        if (allmessage[1] == "manager") 
+                        {
+                            if (r.Name == "Manager")
+                            {
+                                string message = null;
+                                foreach (var c in managercommands)
+                                {
+                                    message = message + c + "\n";
+                                }
+                                s.SendMessageAsync(e.Channel, "`" + message + "`");
+                                break;
+                            }
+                        }
                     }
-                    s.SendMessageAsync(e.Channel,"`" + message + "`");
                 }
 
                 if (e.Message.Content.ToLower().StartsWith("addrole"))
@@ -266,7 +328,7 @@ namespace DiscordBot
 
                     foreach (var r in roles)
                     {
-                        if (r.Name == "Lmao")
+                        if (r.Name == "Manager")
                         {
                             string[] message = e.Message.Content.Split();
                             string Username = message[1];
@@ -306,7 +368,7 @@ namespace DiscordBot
 
                     foreach (var r in roles)
                     {
-                        if (r.Name == "Lmao")
+                        if (r.Name == "Manager")
                         {
                             string[] message = e.Message.Content.Split();
                             string role = message[1];
@@ -325,7 +387,7 @@ namespace DiscordBot
 
                     foreach (var r in roles)
                     {
-                        if (r.Name == "Lmao")
+                        if (r.Name == "Manager")
                         {
                             string[] message = e.Message.Content.Split();
                             var role = e.Guild.Roles.Values;
@@ -373,7 +435,7 @@ namespace DiscordBot
                     }
                 }
 
-                if (e.Message.Content.ToLower().StartsWith("delete") && row)
+                if (e.Message.Content.ToLower().StartsWith("delete"))
                 {
                     var ida = e.Message.Author.Id;
                     var member = e.Guild.GetMemberAsync(ida);
@@ -459,7 +521,7 @@ namespace DiscordBot
                     }
                 }
 
-                if (e.Message.Content.ToLower().StartsWith("stop"))
+                if (e.Message.Content.ToLower().StartsWith("pause"))
                 {
                     var ida = e.Message.Author.Id;
                     var member = e.Guild.GetMemberAsync(ida).Result;

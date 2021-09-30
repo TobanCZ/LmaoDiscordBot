@@ -3,7 +3,7 @@ build_property.TargetPlatformIdentifier =
 build_property.TargetFramework = net5.0
 build_property.TargetFramework = net5.0
 build_property.ProjectTypeGuidsProperty = 
-build_property.MSBuildProjectFullPath = C:\Visual studio projects\DiscordBot\DiscordBot.csproj
+build_property.MSBuildProjectFullPath = C:\Visual studio projects\LmaoDiscordBot\DiscordBot.csproj
 build_property.RootNamespace = DiscordBot
 build_property.RootNamespace = DiscordBot
 build_property.DefineConstantsProperty = TRACE,RELEASE,NET,NET5_0,NETCOREAPP
@@ -41,7 +41,7 @@ build_property.ProjectTypeGuids =
 build_property.PublishSingleFile = False
 build_property.IncludeAllContentForSelfExtract = 
 build_property._SupportedPlatformList = Android,iOS,Linux,macOS,Windows
-build_property.ProjectDir = C:\Visual studio projects\DiscordBot\
+build_property.ProjectDir = C:\Visual studio projects\LmaoDiscordBot\
 
 [C:/Program Files/dotnet/sdk/5.0.401/Sdks/Microsoft.NET.Sdk/analyzers/Microsoft.CodeAnalysis.CSharp.NetAnalyzers.dll]
 build_metadata.AdditionalFiles.SourceItemGroup = Analyzer
