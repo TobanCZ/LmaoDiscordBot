@@ -27,6 +27,9 @@ namespace DiscordBot
         static Timer rowtimer;
         static bool row = true;
 
+        static Timer skiptimer;
+        static bool skip = false;
+
         static string mainmessage = null;
         static DSharpPlus.EventArgs.MessageCreateEventArgs ev = null;
         static DiscordClient mainds = null;
@@ -49,6 +52,9 @@ namespace DiscordBot
         static DiscordChannel voicechannel;
 
         static DiscordActivity act;
+
+        
+
         static void Main(string[] args)
         {
             pingtimer = new Timer(500);
@@ -58,6 +64,10 @@ namespace DiscordBot
             rowtimer = new Timer(1000);
             rowtimer.Elapsed += Rowtimer_Elapsed;
             rowtimer.AutoReset = true;
+
+            skiptimer = new Timer(2000);
+            skiptimer.Elapsed += Skiptimer_Elapsed;
+            skiptimer.AutoReset = true;
 
             act = new DiscordActivity("Minecraft", ActivityType.Playing);
 
@@ -92,6 +102,7 @@ namespace DiscordBot
 
             MainAsync().GetAwaiter().GetResult();
         }
+
 
         static async Task MainAsync()
         {
@@ -646,12 +657,15 @@ namespace DiscordBot
                     {
                         return;
                     }
+                    skip = true;
+
 
                     if (tracks[0] != null)
                     {
+                        skiptimer.Start();
                         playtrack(tracks[0]);
 
-                        SkipSong();
+                        SkipSong(); 
                     }
                     else
                     {
@@ -725,13 +739,14 @@ namespace DiscordBot
             var conn = node.GetGuildConnection(voiceguild);
 
             discord.SendMessageAsync(voicechannel, musicembed("Právě vibuješ", track));
-            conn.PlayAsync(track);
+            await conn.PlayAsync(track);
         }
 
         private static Task Conn_PlaybackFinished(LavalinkGuildConnection sender, DSharpPlus.Lavalink.EventArgs.TrackFinishEventArgs e)
         {
-            if(tracks[0] != null)
+            if(tracks[0] != null && skip == false)
             {
+                skiptimer.Start();
                 playtrack(tracks[0]);
 
                 SkipSong();
@@ -740,19 +755,20 @@ namespace DiscordBot
             return null;
         }
 
-        static async void SkipSong()
+        static void SkipSong()
         {
+            var trackslist = tracks;
+
             for (int i = 0; i < trackscount; i++)
             {
-                if (i + 1 != trackscount)
+                if(i + 1 == trackscount)
                 {
-                    tracks[i] = tracks[i + 1];
+                    trackslist[i] = null;
                 }
-                else
-                {
-                    tracks[i] = null;
-                }
+                trackslist[i] = tracks[i + 1];
             }
+
+            tracks = trackslist;
             trackscount = trackscount - 1;
         }
 
@@ -822,6 +838,12 @@ namespace DiscordBot
         {
             rowtimer.Stop();
             row = true;
+        }
+
+        private static void Skiptimer_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            skiptimer.Stop();
+            skip = false;
         }
 
         static string UploadImage(Bitmap image)
