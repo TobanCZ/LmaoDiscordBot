@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "IsZwOBEu4bJqyHjmHRlyx0w52KcCEtpXd0wwpA7vu9W/NeMRVInPgxHURuxoX7MqhHVtrRb5iW2uHEAjUrIXVg==",
+  "dgSpecHash": "FnIdCJWUzsZ6nNzMK9ENR+AVQBjCcOveVdkRldYgV0+8lbuK3vi1teynnvdwBvTPwIsZQy0Vr4/BrI8Vbbpa6Q==",
   "success": true,
   "projectFilePath": "C:\\Visual studio projects\\LmaoDiscordBot\\DiscordBot.csproj",
   "expectedPackageFiles": [
@@ -38,7 +38,7 @@
     "C:\\Users\\tobia\\.nuget\\packages\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.fedora.23-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
     "C:\\Users\\tobia\\.nuget\\packages\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl\\4.3.2\\runtime.fedora.24-x64.runtime.native.system.security.cryptography.openssl.4.3.2.nupkg.sha512",
     "C:\\Users\\tobia\\.nuget\\packages\\runtime.native.system\\4.3.0\\runtime.native.system.4.3.0.nupkg.sha512",
-    "C:\\Microsoft\\Xamarin\\NuGet\\runtime.native.system.io.compression\\4.3.0\\runtime.native.system.io.compression.4.3.0.nupkg.sha512",
+    "C:\\Users\\tobia\\.nuget\\packages\\runtime.native.system.io.compression\\4.3.0\\runtime.native.system.io.compression.4.3.0.nupkg.sha512",
     "C:\\Users\\tobia\\.nuget\\packages\\runtime.native.system.net.http\\4.3.0\\runtime.native.system.net.http.4.3.0.nupkg.sha512",
     "C:\\Users\\tobia\\.nuget\\packages\\runtime.native.system.net.security\\4.3.0\\runtime.native.system.net.security.4.3.0.nupkg.sha512",
     "C:\\Users\\tobia\\.nuget\\packages\\runtime.native.system.security.cryptography.apple\\4.3.0\\runtime.native.system.security.cryptography.apple.4.3.0.nupkg.sha512",
